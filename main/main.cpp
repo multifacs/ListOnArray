@@ -2,7 +2,7 @@
 
 int main()
 {
-	AList<int> lst;
+	AList<int> lst(10);
 	lst.push_back(1);
 	lst.push_back(5);
 	lst.push_back(100);
@@ -29,4 +29,20 @@ int main()
 	cout << lst << endl;
 
 	AList<int> lst2(lst);
+
+	cout << endl << "Testing" << endl;
+
+	AList<int> a(3);
+	a.push_back(1);
+	a.push_back(2);
+
+	a.insert(3, a.GetSize());
+
+	cout << a << endl;
+	cout << endl;
+
+	a.remove(a.GetSize() - 1);
+
+	cout << a << endl;
+	cout << endl;
 }
