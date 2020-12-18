@@ -1,5 +1,54 @@
+#pragma once
 #include <iostream>
 using namespace std;
+
+template<class T>
+class AList;
+
+template<class T>
+class AListIterator
+{
+private:
+	AList<T>& list;
+	int index;
+public:
+	AListIterator(AList<T>& _list, int _index) : list(_list), index(_index) {}
+	AListIterator(AListIterator<T>& _v) : list(_v.list), index(_v.index) {}
+	~AListIterator() {}
+
+	bool CanGoForward()
+	{
+		return (list.links[index] != -1);
+	}
+	void GoForward()
+	{
+		if (!CanGoForward())
+			throw logic_error("end");
+		index = list.links[index];
+	}
+
+	bool operator==(const AListIterator<T>& _v)
+	{
+		return (list == _v.list && index == _v.index);
+	}
+	AListIterator<T> operator++(int)
+	{
+		GoForward();
+		return (*this);
+	}
+
+	AListIterator<T>& operator=(const AListIterator<T>& _v)
+	{
+		list = _v.list;
+		index = _v.index;
+		return (*this);
+	}
+
+	T GetData()
+	{
+		return list.data[index];
+	}
+};
 
 template<class T>
 class AList
@@ -78,6 +127,11 @@ public:
 			current = links[current];
 			counter++;
 		}
+	}
+
+	AListIterator<T> begin()
+	{
+		return AListIterator<T>(*this, head);
 	}
 
 	void push_back(T data)
@@ -256,4 +310,7 @@ public:
 
 		return ostr;
 	}
+
+	template<class T>
+	friend class AListIterator;
 };

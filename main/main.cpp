@@ -36,7 +36,7 @@ int main()
 	a.push_back(1);
 	a.push_back(2);
 
-	a.insert(3, a.GetSize());
+	a.insert(3, a.GetCount());
 
 	cout << a << endl;
 	cout << endl;
@@ -45,4 +45,7 @@ int main()
 
 	cout << a << endl;
 	cout << endl;
+
+	AListIterator<int> i = lst.begin();
+	cout << i.GetData();
 }
