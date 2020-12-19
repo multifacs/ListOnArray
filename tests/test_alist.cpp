@@ -12,8 +12,8 @@ TEST(alist, can_copy)
 	a.push_back(123);
 
 	AList<int> b(a);
-
-	EXPECT_EQ(123, b[0]);
+	AListIterator<int> k = b.begin();
+	EXPECT_EQ(123, *k);
 }
 
 TEST(alist, can_push_back)
@@ -23,7 +23,9 @@ TEST(alist, can_push_back)
 	lst.push_back(5);
 	lst.push_back(100);
 
-	EXPECT_EQ(100, lst[1]);
+	AListIterator<int> k = lst.begin();
+	k++;
+	EXPECT_EQ(100, *k);
 }
 
 TEST(alist, can_pop_back)
@@ -36,8 +38,9 @@ TEST(alist, can_pop_back)
 	lst.pop_back();
 
 	lst.push_back(17);
-
-	EXPECT_EQ(17, lst[1]);
+	AListIterator<int> k = lst.begin();
+	k++;
+	EXPECT_EQ(17, *k);
 }
 
 TEST(alist, cant_pop_in_empty_list)
@@ -55,7 +58,8 @@ TEST(alist, can_push_front)
 
 	lst.push_front(17);
 
-	EXPECT_EQ(17, lst[0]);
+	AListIterator<int> k = lst.begin();
+	EXPECT_EQ(17, *k);
 }
 
 TEST(alist, can_pop_front)
@@ -67,7 +71,8 @@ TEST(alist, can_pop_front)
 
 	lst.pop_front();
 
-	EXPECT_EQ(100, lst[0]);
+	AListIterator<int> k = lst.begin();
+	EXPECT_EQ(100, *k);
 }
 
 TEST(alist, can_insert)
@@ -81,7 +86,9 @@ TEST(alist, can_insert)
 	lst.insert(2, 1);
 	lst.insert(33, 2);
 
-	EXPECT_EQ(99, lst[3]);
+	AListIterator<int> k = lst.begin();
+	k++; k++; k++;
+	EXPECT_EQ(99, *k);
 }
 
 TEST(alist, can_remove)
@@ -94,7 +101,9 @@ TEST(alist, can_remove)
 
 	lst.remove(1);
 
-	EXPECT_EQ(21, lst[1]);
+	AListIterator<int> k = lst.begin();
+	k++;
+	EXPECT_EQ(21, *k);
 }
 
 TEST(alist, can_insert_at_end)
@@ -105,7 +114,9 @@ TEST(alist, can_insert_at_end)
 
 	a.insert(3, a.GetCount());
 
-	EXPECT_EQ(3, a[a.GetCount() - 1]);
+	AListIterator<int> k = a.begin();
+	k++; k++;
+	EXPECT_EQ(3, *k);
 }
 
 TEST(alist, can_remove_at_end)
@@ -117,7 +128,9 @@ TEST(alist, can_remove_at_end)
 
 	a.remove(a.GetCount() - 1);
 
-	EXPECT_EQ(2, a[a.GetCount() - 1]);
+	AListIterator<int> k = a.begin();
+	k++;
+	EXPECT_EQ(2, *k);
 }
 
 TEST(alist, cant_insert_out_of_bounds)

@@ -44,6 +44,11 @@ public:
 		return (*this);
 	}
 
+	T& operator *()
+	{
+		return(list.data[index]);
+	}
+
 	T GetData()
 	{
 		return list.data[index];
@@ -113,7 +118,7 @@ public:
 		Count = 0;
 	}
 
-	T& operator[](const int index)
+	/*T& operator[](const int index)
 	{
 		if (index < 0 || index >= Count)
 			throw length_error("incorrect index");
@@ -127,7 +132,7 @@ public:
 			current = links[current];
 			counter++;
 		}
-	}
+	}*/
 
 	AListIterator<T> begin()
 	{
@@ -303,14 +308,58 @@ public:
 
 	friend ostream& operator << (ostream& ostr, AList<T>& _l)
 	{
+		AListIterator<T> k = _l.begin();
 		ostr << "{";
 		for (int i = 0; i < _l.GetCount() - 1; i++)
-			ostr << _l[i] << ", ";
-		ostr << _l[_l.GetCount() - 1] << "}";
+		{
+			ostr << k.GetData() << ", ";
+			k++;
+		}
+		ostr << k.GetData() << "}";
 
 		return ostr;
 	}
 
+	//extra
 	template<class T>
 	friend class AListIterator;
+
+	void reverse()
+	{
+		if (!IsEmpty())
+		{
+			int temp = -1;
+			int pos = head;
+			int next = 0;
+			while (next != -1)
+			{
+				next = links[pos];
+				links[pos] = temp;
+				temp = pos;
+				if (next != -1)
+					pos = next;
+			}
+			head = pos;
+		}
+	}
+
+	T& find(T elem)
+	{
+		if (IsEmpty())
+			throw logic_error("list empty");
+		else
+		{
+			AListIterator<T> i = this->begin();
+			while (1 == 1)
+			{
+				if (i.GetData() == elem)
+					return *i;
+				else
+					i++;
+				if (!i.CanGoForward())
+					break;
+			}
+			return *(begin());
+		}
+	}
 };

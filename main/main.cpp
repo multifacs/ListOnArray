@@ -19,6 +19,8 @@ int main()
 	lst.insert(2, 1);
 	lst.insert(33, 2);
 	cout << lst << endl;
+	lst.reverse();
+	cout << lst << endl;
 
 	cout << endl << "Removing" << endl;
 	lst.remove(2);
@@ -27,6 +29,8 @@ int main()
 	cout << endl << "Pop back" << endl;
 	lst.pop_back();
 	cout << lst << endl;
+
+	cout << lst.find(99);
 
 	AList<int> lst2(lst);
 
@@ -47,5 +51,15 @@ int main()
 	cout << endl;
 
 	AListIterator<int> i = lst.begin();
-	cout << i.GetData();
+	cout << i.GetData() << endl;
+	*i = 999;
+	cout << i.GetData() << endl;
+
+	AList<int> r(3);
+	r.push_back(1);
+	r.push_back(2);
+	r.push_back(3);
+	cout << r << endl;
+	r.reverse();
+	cout << r << endl;
 }
